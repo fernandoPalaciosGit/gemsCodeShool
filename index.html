@@ -11,6 +11,7 @@
 
     <!-- ENLACES EXTERNOS -->
     <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src="vendor/js/angular.js"></script>
 </head>
 <body class="row" ng-app="store">
@@ -18,7 +19,7 @@
         <ul     class="list-group"
                 ng-controller="StoreController">
                 <!-- ng-show="!store.product.soldOut" || ng-hide="store.product.soldOut" -->
-                <!-- solo apareceran los <li> cullo image.full !== "" -->
+                <!-- solo apareceran los <li> cuyo image.full !== "" -->
             <li     class="list-group-item gallery"
                     ng-controller="GalleryController as gallery"
                     ng-repeat="product in products"
@@ -29,13 +30,13 @@
                     {{product.name}}
                     <em class="pull-right">{{product.price | currency}}</em>
                 </h1>
-                <p><img     style="width: 15em;"
-                            ng-src="{{product.images.full[gallery.current]}}"
+                <p><img     ng-src="{{product.images.full[gallery.current]}}"
                             alt="{{product.images.alt}}"></p>
+                
                 <ul class="col-md-12">
                     <li     class="small-image img-thumbnail"
                             ng-repeat="imageThumb in product.images.thumb" >
-                        <img style="width: 5em;" ng-src="{{imageThumb}}" />
+                        <img ng-src="{{imageThumb}}" />
                     </li>
                 </ul><br/><br/>
 
@@ -48,7 +49,7 @@
                                 <a href="" ng-click="panel.selectedTab(1)">Description</a>
                             </li>
                             <li ng-class="{active: panel.isSelected(2)}">
-                                <a href="" ng-click="panel.selectedTab(2)">Especifications</a>
+                                <a href="" ng-click="panel.selectedTab(2)">Specs</a>
                             </li>
                             <li ng-class="{active: panel.isSelected(3)}">
                                 <a href="" ng-click="panel.selectedTab(3)">Reviews</a>
@@ -56,25 +57,98 @@
                         </ul>
                         <div class="panel" ng-show="panel.isSelected(1)">
                             <h3>Description</h3>
-                            <p>{{product.description}}</p>
+                            <blockquote>{{product.description}}</blockquote>
                         </div>
                         <div class="panel" ng-show="panel.isSelected(2)">
-                            <h3>Especifications</h3>
-                            <p>None yet</p>
+                            <h3>Specs</h3>
+                            <blockquote>Shine: {{product.shine}}</blockquote>
                         </div>
                         <div class="panel" ng-show="panel.isSelected(3)">
                             <h3>Reviews</h3>
-                            <p>None yet</p>
+                            <blockquote ng-repeat="review in product.reviews">
+                                <b>{{review.stars}} Stars: </b>
+                                {{review.body}}
+                                <br/><cite>by: {{review.author}}</cite>
+                            </blockquote>
+                            
+                            <!-- FORMULARIO DE CITAS -->
+                            <!-- tenemos que 'bind: enlazar' las propiedades de 'review' al formulario -->
+                            <!-- 'ng-model' enlaza los controles del formulario con la propiedad -->
+                            <!-- novalidate: turn off default html validation -->
+                            <form name="reviewForm" class="form-horizontal" role="form"
+                                    action="index.html" method="get" accept-charset="utf-8"
+                                    onsubmit="event.preventDefault();" novalidate
+                                    ng-controller="ReviewController as reviewCtrl"
+                                    ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)">
+                                    <!-- tengo que pasaar una referencia al objeto producto del controlador StoreController -->
+
+                                <!-- ng-model: 2 way data binding: para vincular datos de propiedades con expresiones en el html, utilizaremos: ng-model -->
+
+                                <!-- angular añade clases por defecto a los controles a medida que estos se van validando:
+                                before typing a control: class="ng-pristine ng-invalid"
+                                after typing with invalid contorol: class="ng-disty ng-invalid"
+                                after typing with valid control: class="ng-dirty ng-valid" -->
+                                <blockquote>
+                                    <b>{{reviewCtrl.review.stars}} Stars: </b>
+                                    {{reviewCtrl.review.body}}
+                                    <cite class="clearfix">by: {{reviewCtrl.review.author}}</cite>
+                                </blockquote>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Stars</label>
+                                    <div class="col-sm-8">
+                                        <select name="stars" class="form-control"
+                                                required="required" title="evaluate the gem"
+                                                ng-model="reviewCtrl.review.stars"
+                                                ng-options="stars for stars in [1,2,3,4,5,6,7,8]">
+                                            <!-- en los selects el <option value=""> sustituye al placeholder  -->
+                                            <option value="">score</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Coment</label>
+                                    <div class="col-sm-8">
+                                        <textarea name="body" class="form-control"
+                                                    ng-model="reviewCtrl.review.body"
+                                                    placeholder="my personal comment of gems"
+                                                    title="review of experience"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">By</label>
+                                    <div class="col-sm-8">
+                                        <input name="author" placeholder="reviewerEmail@domain.com"
+                                                required="required" title="reviwer email"
+                                                type="email" class="form-control"
+                                                ng-model="reviewCtrl.review.author"/>
+                                    </div>
+                                </div>
+                                <!-- angular tambien añade validacion por defecto alos controles mas conocidos, ,mejorando la validacion html5 -->
+                                        
+                                <div class="form-group">
+                                    <div class="col-sm-6">reviewForm is {{reviewForm.$valid}}</div>
+                                    <div class="col-sm-4">
+                                        <input type="submit" value="submit" 
+                                                class="btn btn-info"/>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     <!-- en angular las expresiones {{tab}} se reevaluan cuando las propiedades cambian [tab = 1] -->
                 </div>
 
-                <p><input type="button" ng-show="product.canPurchase" value="Add to cart"/></p>
+                <div class="col-md-12">
+                    <input type="button" ng-show="product.canPurchase"
+                            value="Add to cart" class="btn btn-primary btn-block"/></div>
             </li>
         </ul>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="js/main.js"></script>
+</body>
 </body>
 </html>

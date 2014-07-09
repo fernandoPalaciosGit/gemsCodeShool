@@ -35,6 +35,18 @@
 		};
 	});
 
+	//CONTROLLER FOR  REVIEW FORM
+	app.controller("ReviewController", function(){
+		this.review = {};
+		this.addReview = function(product){
+			this.review.createdOn = new Date();
+			product.reviews.push(this.review);
+			//primero se añade como nueva propiedad del modelo product y despues se  
+			//aqui se formateara en la vista de automaticamente
+			this.review = {};//reseteare para que en la siguente vista se muestren los campos vacios
+		};
+	});
+
 })(window, window.angular);
 
 /*comprobar si es nula una variable*/
