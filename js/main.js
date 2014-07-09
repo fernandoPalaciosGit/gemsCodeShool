@@ -36,21 +36,17 @@
 	});
 
 	//CONTROLLER FOR  REVIEW FORM
-	app.controller("ReviewController", function(){
-		this.review = {};
-		this.addReview = function(product){
-			this.review.createdOn = new Date();
-			product.reviews.push(this.review);
-			//primero se añade como nueva propiedad del modelo product y despues se  
-			//aqui se formateara en la vista de automaticamente
-			this.review = {};//reseteare para que en la siguente vista se muestren los campos vacios
-		};
-	});
+	// app.controller("ReviewController", function(){
+	// 	this.review = {};
+	// 	this.addReview = function(product){
+	// 		this.review.createdOn = new Date();
+	// 		product.reviews.push(this.review);
+	// 		//primero se añade como nueva propiedad del modelo product y despues se  
+	// 		//aqui se formateara en la vista de automaticamente
+	// 		this.review = {};//reseteare para que en la siguente vista se muestren los campos vacios
+	// 	};
+	// });
 
-	// engine template: a traves de directivas ng-include o directivas customizadas puedes importar el contenido de un html desde otro
-	// custom directives: permite crear una estructura de html mas escalable y visualmente mas semantica, permitiendonos kincrustrar la logica del modelo de angular en un html aislado (que incluiremos en la vista)
-
-	// el nombre de la directiva en el html (nodo del DOM), en el momento de su implementacion en javascript, se convierte en camelCase
 	app.directive("productReviews", function(){
 		return { //configuraciones de diretivas html
 			//restrict: 'A', //tipo de directiva, A: atributo
@@ -78,6 +74,25 @@
 		return {
 			restrict: "A",
 			templateUrl: "directive/product-specs.tpl.html"
+		};
+	});
+
+	//esta directiva tiene en particular, que lleva asociado un controlador para las propiedades que se quieren imprimir dentro de la directiva html, por lo que el modulo, podremos embeberlo en esta declaracion de la directiva
+	app.directive("formReviews", function(){
+		return{
+			restrict: "E",
+			templateUrl: "directive/form-reviews.tpl.html",
+			controller: function(){
+				this.review = {};
+				this.addReview = function(product){
+					this.review.createdOn = new Date();
+					product.reviews.push(this.review);
+					//primero se añade como nueva propiedad del modelo product y despues se  
+					//aqui se formateara en la vista de automaticamente
+					this.review = {};//reseteare para que en la siguente vista se muestren los campos vacios
+				};
+			},
+			controllerAs: "reviewCtrl"
 		};
 	});
 
