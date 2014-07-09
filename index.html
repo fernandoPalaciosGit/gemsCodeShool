@@ -19,7 +19,7 @@
         <ul     class="list-group"
                 ng-controller="StoreController">
                 <!-- ng-show="!store.product.soldOut" || ng-hide="store.product.soldOut" -->
-                <!-- solo apareceran los <li> cuyo image.full !== "" -->
+                <!-- solo apareceran los <li> cullo image.full !== "" -->
             <li     class="list-group-item gallery"
                     ng-controller="GalleryController as gallery"
                     ng-repeat="product in products"
@@ -55,22 +55,30 @@
                                 <a href="" ng-click="panel.selectedTab(3)">Reviews</a>
                             </li>
                         </ul>
-                        <div class="panel" ng-show="panel.isSelected(1)">
-                            <h3>Description</h3>
-                            <blockquote>{{product.description}}</blockquote>
+
+                        <div product-description class="panel" ng-show="panel.isSelected(1)">
+                            <!-- directiva productDescription -->
                         </div>
-                        <div class="panel" ng-show="panel.isSelected(2)">
-                            <h3>Specs</h3>
-                            <blockquote>Shine: {{product.shine}}</blockquote>
+                        <div product-specs class="panel" ng-show="panel.isSelected(2)">
+                            <!-- directiva productSpecs -->
                         </div>
                         <div class="panel" ng-show="panel.isSelected(3)">
                             <h3>Reviews</h3>
-                            <blockquote ng-repeat="review in product.reviews">
-                                <b>{{review.stars}} Stars: </b>
-                                {{review.body}}
-                                <br/><cite>by: {{review.author}}</cite>
+                            <!-- DATA PRODUCT-REVIEWS INCLUDE
+                            <blockquote ng-include="product.include_reviews_tpl"
+                                            ng-repeat="review in product.reviews">
                             </blockquote>
-                            
+                            -->
+
+                            <!-- DATA PRODUCT-REVIEWS ATRIBUTE DIRECTIVE
+                            <blockquote product-reviews
+                                            ng-repeat="review in product.reviews">
+                            </blockquote>
+                            -->
+
+                            <!-- DATA PRODUCT-REVIEWS ELEMENT DIRECTIVE-->
+                            <product-reviews></product-reviews>
+
                             <!-- FORMULARIO DE CITAS -->
                             <!-- tenemos que 'bind: enlazar' las propiedades de 'review' al formulario -->
                             <!-- 'ng-model' enlaza los controles del formulario con la propiedad -->
@@ -88,11 +96,9 @@
                                 before typing a control: class="ng-pristine ng-invalid"
                                 after typing with invalid contorol: class="ng-disty ng-invalid"
                                 after typing with valid control: class="ng-dirty ng-valid" -->
-                                <blockquote>
-                                    <b>{{reviewCtrl.review.stars}} Stars: </b>
-                                    {{reviewCtrl.review.body}}
-                                    <cite class="clearfix">by: {{reviewCtrl.review.author}}</cite>
-                                </blockquote>
+
+                                <!-- DATA USER-REVIEW -->
+                                <product-new-reviews></product-new-reviews>
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Stars</label>
@@ -119,11 +125,17 @@
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">By</label>
-                                    <div class="col-sm-8">
-                                        <input name="author" placeholder="reviewerEmail@domain.com"
+                                    <div class="col-sm-5">
+                                        <input name="emailAuthor" placeholder="reviewerEmail@domain.com"
                                                 required="required" title="reviwer email"
                                                 type="email" class="form-control"
-                                                ng-model="reviewCtrl.review.author"/>
+                                                ng-model="reviewCtrl.review.emailAuthor"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" placeholder="nickName" length="8"
+                                                required="required" tirle="user short nickname"
+                                                name="author" class="form-control"
+                                                ng-model="reviewCtrl.review.author">
                                     </div>
                                 </div>
                                 <!-- angular tambien añade validacion por defecto alos controles mas conocidos, ,mejorando la validacion html5 -->
@@ -136,6 +148,7 @@
                                     </div>
                                 </div>
                             </form>
+                            
                         </div>
                     <!-- en angular las expresiones {{tab}} se reevaluan cuando las propiedades cambian [tab = 1] -->
                 </div>
@@ -149,6 +162,5 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="js/main.js"></script>
-</body>
 </body>
 </html>

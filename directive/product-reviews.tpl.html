@@ -1,0 +1,8 @@
+<blockquote ng-repeat="review in product.reviews">
+	<b>{{review.stars}} Stars: </b>
+	<cite>{{review.body}}</cite>
+	<p class="h-card">
+		by: <a class="u-email" href="mailto:{{review.emailAuthor}}">{{review.author}}</a>
+		on <time datetime="{{review.createdOn}}">{{review.createdOn | date}}</time>
+	</p>
+</blockquote>

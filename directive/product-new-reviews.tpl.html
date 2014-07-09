@@ -1,0 +1,21 @@
+<blockquote>
+	<b>{{reviewCtrl.review.stars}} Stars: </b>
+	<cite>{{reviewCtrl.review.body}}</cite>
+	<p>
+		by: {{reviewCtrl.review.author}}
+		on {{reviewCtrl.review.createdOn | date}}
+	</p>
+</blockquote>
+
+<!-- NO TIENE SENTIDO COLOCAR EL FORMATO FINAL DE LA VISTA,
+PORQUE ESTOS DATOS, DESPUES DEL SUBMIT, SE UTILIZARAN PARA AÑADIR UNA NUEVA ENTRADA A LA PROPIEDAD REVIEWS DDE product.reviews, y esa se formateara con su derectiva customizada <produduct-reviews>
+<blockquote>
+	<b>{{reviewCtrl.review.stars}} Stars: </b>
+	<cite>{{reviewCtrl.review.body}}</cite>
+	<p class="h-card">
+		by: <a class="u-email" href="mailto:{{reviewCtrl.review.emailAuthor}}">
+				{{reviewCtrl.review.author}}</a>
+		on <time datetime="{{review.createdOn}}">
+				{{reviewCtrl.review.createdOn | date}}</time>
+	</p>
+</blockquote> -->
