@@ -1,0 +1,68 @@
+<!-- FORMULARIO DE CITAS -->
+<!-- tenemos que 'bind: enlazar' las propiedades de 'review' al formulario -->
+<!-- 'ng-model' enlaza los controles del formulario con la propiedad -->
+<!-- novalidate: turn off default html validation -->
+<form name="reviewForm" class="form-horizontal" role="form"
+		action="index.html" method="get" accept-charset="utf-8"
+		onsubmit="event.preventDefault();" novalidate
+		ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)">
+		<!-- tengo que pasaar una referencia al objeto producto del controlador StoreController -->
+
+	<!-- ng-model: 2 way data binding: para vincular datos de propiedades con expresiones en el html, utilizaremos: ng-model -->
+
+	<!-- angular añade clases por defecto a los controles a medida que estos se van validando:
+	before typing a control: class="ng-pristine ng-invalid"
+	after typing with invalid contorol: class="ng-disty ng-invalid"
+	after typing with valid control: class="ng-dirty ng-valid" -->
+
+	<!-- DATA USER-REVIEW -->
+	<product-new-reviews></product-new-reviews>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Stars</label>
+		<div class="col-sm-8">
+			<select name="stars" class="form-control"
+					required="required" title="evaluate the gem"
+					ng-model="reviewCtrl.review.stars"
+					ng-options="stars for stars in [1,2,3,4,5,6,7,8]">
+				<!-- en los selects el <option value=""> sustituye al placeholder  -->
+				<option value="">score</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Coment</label>
+		<div class="col-sm-8">
+			<textarea name="body" class="form-control"
+						ng-model="reviewCtrl.review.body"
+						placeholder="my personal comment of gems"
+						title="review of experience"></textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">By</label>
+		<div class="col-sm-5">
+			<input name="emailAuthor" placeholder="reviewerEmail@domain.com"
+					required="required" title="reviwer email"
+					type="email" class="form-control"
+					ng-model="reviewCtrl.review.emailAuthor"/>
+		</div>
+		<div class="col-sm-3">
+			<input type="text" placeholder="nickName" length="8"
+					required="required" tirle="user short nickname"
+					name="author" class="form-control"
+					ng-model="reviewCtrl.review.author">
+		</div>
+	</div>
+	<!-- angular tambien añade validacion por defecto alos controles mas conocidos, ,mejorando la validacion html5 -->
+			
+	<div class="form-group">
+		<div class="col-sm-6">reviewForm is {{reviewForm.$valid}}</div>
+		<div class="col-sm-4">
+			<input type="submit" value="submit" 
+					class="btn btn-info"/>
+		</div>
+	</div>
+</form>
