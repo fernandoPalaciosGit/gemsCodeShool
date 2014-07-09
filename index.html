@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <!-- fuerza IE a utilizar el motor de renderizado más actual que esté disponible (incluso en intranets) & Chrome Frame (plugin para IE 6, 7 y 8)-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="description" content="descripcion corta de menos 300 caracteres de la pagina web" />
+    <meta name="author" content="Fernando Palacios Landi" />
+    <title>keyword descriptiva de la web</title>
+
+    <!-- ENLACES EXTERNOS -->
+    <link rel="alternate" type="application/atom+xml" title="My Weblog feed" href="feed/***.xml" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/vendors/normalize.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/vendors/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+    <!-- ENCABEZADO DE PAGINA
+    ******************************-->
+    <header id="encabezado">
+        <div id="logo"></div>
+        <h1>encabezado</h1>
+        <p class="subtitles">subtitulos</p>
+    </header>
+
+    <!-- NAVEGACION INTRADOCUMENTAL
+    ******************************-->
+    <nav id="nav_host"> UL>LI </nav>
+
+    <!-- CONTENEDOR DE ARTICULOS
+    ******************************-->
+    <section id="contenedor-articulos">
+        <header>
+            <h2>motivo de articulos</h2>
+        </header>
+
+        <article id="art1" class="art">
+            <header><h3>Encabezado primer articulo</h3></header>
+            <p>Contenido primer articulo</p>
+        </article>
+
+        <article id="art2" class="art">
+            <header><h3>Encabezado segundo articulo</h3></header>
+            <p>Contenido segundo articulo</p>
+        </article>
+
+        <article id="art3" class="art">
+            <header><h3>Encabezado tercer articulo</h3></header>
+            <p>Contenido tercer articulo</p>
+        </article>
+    </section>
+
+    <!-- CONTENIDO ALTERNATIVO
+    ******************************-->
+    <aside id="alternativo">
+    </aside>
+
+    <!-- FOOTER ACERCA DEL AUTOR
+    ******************************-->
+    <footer id="footer">
+        <div id="autor-footer">
+            <h2>Acerca del Autor</h2>
+            <address>
+                Escrita por: <a rel="author" href="mailto:fernandopalacioslandi@gmail.com">Mail Nando</a> -
+                <a href="http://www.cruzalosdedos.es/curriculum/nando-cv/index.html" rel="author">Curriculum</a><br/>
+                Pagina Web: <a rel="author" href="http://www.cruzalosdedos.es/">Web Nando</a><br/>
+                Repositorio Web: <a rel="author" href="https://github.com/fernandoPalaciosGit/">Github Nando</a><br/>
+            </address>
+        </div>
+        <div id="wrapCC">
+            <a rel="license"> IMG_LICENCE </a>
+            <div id="licenseCC">
+                <a href="http://creativecommons.org/choose/?lang=es_ES">Creative Commons</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- carga jQuery desde el CDN de google -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- si el CDN falla, se carga desde el servidor cliente -->
+    <script>window.jQuery || document.write('<script src="js/vendors/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <!-- google analytics -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-48618914-1');ga('send','pageview');
+  </script>
+</body>
+</html>
