@@ -47,6 +47,40 @@
 		};
 	});
 
+	// engine template: a traves de directivas ng-include o directivas customizadas puedes importar el contenido de un html desde otro
+	// custom directives: permite crear una estructura de html mas escalable y visualmente mas semantica, permitiendonos kincrustrar la logica del modelo de angular en un html aislado (que incluiremos en la vista)
+
+	// el nombre de la directiva en el html (nodo del DOM), en el momento de su implementacion en javascript, se convierte en camelCase
+	app.directive("productReviews", function(){
+		return { //configuraciones de diretivas html
+			//restrict: 'A', //tipo de directiva, A: atributo
+			//templateUrl: 'directive/include-product-reviews.tpl.html'
+			restrict: 'E', //tipo de directiva, E: elemento html
+			templateUrl: 'directive/product-reviews.tpl.html'
+		};
+	});
+
+	app.directive("productNewReviews", function(){
+		return {
+			restrict: "E",
+			templateUrl: "directive/product-new-reviews.tpl.html"
+		};
+	});
+
+	app.directive("productDescription", function(){
+		return {
+			restrict: "A",
+			templateUrl: "directive/product-description.tpl.html"
+		};
+	});
+
+	app.directive("productSpecs", function(){
+		return {
+			restrict: "A",
+			templateUrl: "directive/product-specs.tpl.html"
+		};
+	});
+
 })(window, window.angular);
 
 /*comprobar si es nula una variable*/
