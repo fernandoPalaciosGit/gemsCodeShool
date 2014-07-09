@@ -1,7 +1,7 @@
-//MODULO DE ANGULAR
+//MODULO DE CONTROLADORES
 (function(w, ng){
-
-	var app = ng.module("store", []);
+	//DEPENDENCIA: store dependera de store-products, porque dentro de este ultimo modulo, nos encontramos con todas nuestras directivas, dentro de las cuales usamos los controladores del primer modulo 'product'
+	var app = ng.module("store", ["store-products"]);
 	//CONTROLADOR DE DATOS (mineralGems.json)
 	app.controller("StoreController", function($scope, $http){
 		$http	.get('data/mineralGems.json')
@@ -34,24 +34,18 @@
 			this.current =  (!isEmpty(select)) ? select : 0;
 		};
 	});
+})(window, window.angular);
 
-	//CONTROLLER FOR  REVIEW FORM
-	// app.controller("ReviewController", function(){
-	// 	this.review = {};
-	// 	this.addReview = function(product){
-	// 		this.review.createdOn = new Date();
-	// 		product.reviews.push(this.review);
-	// 		//primero se añade como nueva propiedad del modelo product y despues se  
-	// 		//aqui se formateara en la vista de automaticamente
-	// 		this.review = {};//reseteare para que en la siguente vista se muestren los campos vacios
-	// 	};
-	// });
+//MODULO DE DIRECTIVAS
+(function(w, ng){
 
+	//utilizamos un nuevo modulo de angular para encapsular nuestras directivas
+	//como necesitamos estas directivas para la vista, (ya que dentro de las directivas hay controladoresfuncionando), este modulo 'store-products', lo añadiremos como dependencia del modulo ppal 'store' que contiene los controladores de las directivas mencionadas
+	var app = ng.module("store-products", []);
+	
 	app.directive("productReviews", function(){
-		return { //configuraciones de diretivas html
-			//restrict: 'A', //tipo de directiva, A: atributo
-			//templateUrl: 'directive/include-product-reviews.tpl.html'
-			restrict: 'E', //tipo de directiva, E: elemento html
+		return {
+			restrict: 'E',
 			templateUrl: 'directive/product-reviews.tpl.html'
 		};
 	});
@@ -97,6 +91,7 @@
 	});
 
 })(window, window.angular);
+
 
 /*comprobar si es nula una variable*/
 var isEmpty = function(str) {
